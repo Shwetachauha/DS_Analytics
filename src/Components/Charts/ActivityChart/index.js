@@ -1,48 +1,27 @@
 import React from 'react';
-import 'chart.js/auto';
-import { Line } from 'react-chartjs-2';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import moment from 'moment';
 import { userActivities } from './DeviceData';
 
 const ActivityChart = () => {
-  const labels = userActivities.map(activity => moment(activity.dateTime).format('YYYY-MM-DD HH:mm'));
-  const totalUsersData = userActivities.map(activity => activity.totalUsers);
-  const devicesUsedData = userActivities.map(activity => activity.devicesUsed);
+  const data = userActivities.map(activity => ({
+    dateTime: moment(activity.dateTime).format('YYYY-MM-DD HH:mm'),
+    totalUsers: activity.totalUsers,
+    devicesUsed: activity.devicesUsed,
+  }));
 
-  const data = {
-    labels: labels,
-    datasets: [
-      {
-        label: 'Total Users',
-        data: totalUsersData,
-        borderColor: 'rgba(75,192,192,1)',
-        borderWidth: 1,
-        fill: false,
-      },
-      {
-        label: 'Devices Used',
-        data: devicesUsedData,
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        fill: false,
-      },
-    ],
-  };
-
-  const options = {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        min: 0,
-      },
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  return <Line data={data} options={options} />;
+  return (
+    <LineChart width={800} height={400} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="dateTime" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="totalUsers" name="Total Users" stroke="rgba(75,192,192,1)" strokeWidth={2} />
+      <Line type="monotone" dataKey="devicesUsed" name="Devices Used" stroke="rgba(255,99,132,1)" strokeWidth={2} />
+    </LineChart>
+  );
 };
 
 export default ActivityChart;
+

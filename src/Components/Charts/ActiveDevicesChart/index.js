@@ -1,36 +1,17 @@
 import React from 'react';
-import { Line } from 'react-chartjs-2';
-import 'chart.js/auto';
-
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const ActiveDevicesChart = ({ data }) => {
-  const chartData = {
-    labels: data.map(entry => entry.dateTime),
-    datasets: [
-      {
-        label: 'Active Users',
-        data: data.map(entry => entry.activeUsers),
-        borderColor: 'rgba(255,99,132,1)',
-        borderWidth: 1,
-        fill: false,
-      },
-    ],
-  };
-
-  const options = {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        min: 0,
-      },
-      y: {
-        beginAtZero: true,
-      },
-    },
-  };
-
-  return <Line data={chartData} options={options} />;
+  return (
+    <LineChart width={800} height={400} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="dateTime" />
+      <YAxis />
+      <Tooltip />
+      <Legend />
+      <Line type="monotone" dataKey="activeUsers" stroke="rgba(255,99,132,1)" activeDot={{ r: 8 }} />
+    </LineChart>
+  );
 };
 
 export default ActiveDevicesChart;

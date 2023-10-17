@@ -6,3 +6,4 @@
 
 # Fixed
 - fix App.js [fix/activeDevices]
+- fix charts with UI [fix/branches-ui]
