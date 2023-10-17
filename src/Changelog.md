@@ -5,3 +5,4 @@
 
 
 # Fixed
+- fix App.js [fix/activeDevices]
